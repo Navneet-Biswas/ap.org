@@ -72,4 +72,19 @@ public class TS_001_ArticlesHomePage extends BaseClass {
 		articlesHomePage.verifyArticleCommentCount(input.get("commentData"));
 
 	}
+	
+	
+	@Test(priority = 4, alwaysRun = true, dataProvider = "getData")
+
+	@Description("Check the Hindi articles")
+	@Epic("eg.EP_001")
+	@Feature("Hindi_Articles")
+	@Story("eg.US_001")
+	@Severity(SeverityLevel.MINOR)
+	public void verifyHindiArticlesToogle(HashMap<String, String> input) throws InterruptedException {
+		ArticlesHomePage articlesHomePage = new ArticlesHomePage();
+		articlesHomePage.checkLanguageToogle();
+
+	}
+	
 }

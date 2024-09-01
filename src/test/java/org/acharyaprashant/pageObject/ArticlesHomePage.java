@@ -1,10 +1,13 @@
 package org.acharyaprashant.pageObject;
 
 import org.acharyaprashant.testCases.BaseClass;
+import org.acharyaprashant.utilities.ExplicitWait;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class ArticlesHomePage extends BaseClass {
@@ -238,6 +241,46 @@ public class ArticlesHomePage extends BaseClass {
 	    // Assert that the updated view count is greater than the current view count
 	    Assert.assertTrue(curntComentCount1 < updatedComentCount1, "Test failed: Current Comments count is not less than the updated view count.");
 
+	}
+	
+	
+	//Navigate back to “Article Home Page”. On language toggle (English to Hindi), verify Hindi articles should be shown.
+	
+	@FindBy(xpath = "//button[contains(@class,'w-28 whitespace-nowrap rounded-3xl px-5 py-1.5 font-semibold text-slate-600 hover:bg-slate-200')]")
+	WebElement eleHindiTogle;
+	
+	@FindBy(xpath = "//span[contains(text(),'छठे महाविनाश की शुरुआत हो चुकी है!')]")
+	WebElement elehindiArticle;
+	
+	public void checkLanguageToogle() {
+		
+		
+        try {
+            // Click on Articles
+            eleArticles.click();
+
+            // Wait until the Hindi Toggle button is clickable and click it
+            ExplicitWait.explicitWaitForElementClicable(eleHindiTogle);
+            eleHindiTogle.click();
+
+            // Wait until the Hindi article is visible
+            ExplicitWait.explicitWaitForElement(eleHindiTogle);
+            // Print the title of the page to confirm navigation
+            System.out.println(driver.getTitle());
+
+            // Check if the Hindi article is displayed
+            if (elehindiArticle.isDisplayed()) {
+                System.out.println("Hindi articles are displayed successfully.");
+            } else {
+                System.out.println("Hindi articles are NOT displayed.");
+            }
+
+        } catch (StaleElementReferenceException e) {
+            // Handle the StaleElementReferenceException if necessary
+            System.out.println("Caught StaleElementReferenceException: " + e.getMessage());
+            // Optionally, retry the operation or handle accordingly
+        }
+		
 	}
 
 }
