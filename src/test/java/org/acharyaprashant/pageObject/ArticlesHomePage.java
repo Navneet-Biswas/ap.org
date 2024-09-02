@@ -7,7 +7,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class ArticlesHomePage extends BaseClass {
@@ -219,7 +218,7 @@ public class ArticlesHomePage extends BaseClass {
 
 		// post the comment
 
-		//eleClickPostBtn.click();
+		eleClickPostBtn.click();
 		
 		// close the comment box
 		eleClickCancelBtn.click();
@@ -252,7 +251,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "//span[contains(text(),'जो कठिनतम है उसे साध लो, बाकी अपने आप सध जाएगा')]")
 	WebElement elehindiArticle;
 	
-	public void checkLanguageToogle() throws InterruptedException {
+	public void checkLanguageToogle(String expText) throws InterruptedException {
 		
 		
         try {
@@ -274,15 +273,15 @@ public class ArticlesHomePage extends BaseClass {
             
             if (elehindiArticle.isDisplayed()) {
                 System.out.println("Hindi articles are displayed successfully.");
-                //String hindiTxt=elehindiArticle.getText();
-               // Assert.assertEquals(hindiTxt, expText);
+                String hindiTxt=elehindiArticle.getText();
+               Assert.assertEquals(hindiTxt, expText);
             } else {
                 System.out.println("Hindi articles are NOT displayed.");
             }
 
         } catch (StaleElementReferenceException e) {
             // Handle the StaleElementReferenceException if necessary
-            System.out.println("Caught StaleElementReferenceException: " + e.getMessage());
+           // System.out.println("Caught StaleElementReferenceException: " + e.getMessage());
             // Optionally, retry the operation or handle accordingly
         }
 		

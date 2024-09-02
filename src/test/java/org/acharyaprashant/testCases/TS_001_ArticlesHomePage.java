@@ -83,7 +83,7 @@ public class TS_001_ArticlesHomePage extends BaseClass {
 	@Severity(SeverityLevel.MINOR)
 	public void verifyHindiArticlesToogle(HashMap<String, String> input) throws InterruptedException {
 		ArticlesHomePage articlesHomePage = new ArticlesHomePage();
-		articlesHomePage.checkLanguageToogle();
+		articlesHomePage.checkLanguageToogle(input.get("expHindiTxt"));
 
 	}
 	
