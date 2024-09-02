@@ -14,7 +14,7 @@ public class HandleAssertions extends BaseClass {
 			
 			 WebElement toastMsg=driver.findElement(By.xpath("//div[@class='popup-content']//span"));
 			
-			 ExplicitWait.explicitWaitForElement(toastMsg);
+			 ExplicitWait.explicitWaitForElementVisibility(toastMsg);
 			 
 			 String actual=toastMsg.getText();
 			 String expected1="Success Message";

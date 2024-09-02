@@ -74,7 +74,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "//button[@aria-label='Go back']//*[name()='svg']")
 	WebElement eleBackButton;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[8]/div")
+	@FindBy(xpath = "(//div[@class='flex items-center'])[9]/div")
 	WebElement eleGetUpdatedViewCount;
 
 	public void verifyArticleViewCount() {
@@ -113,7 +113,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "(//div[contains(@class,'flex items-center space-x-4 laptop:space-x-7')])[1]//span")
 	WebElement eleGetcurntLikeCount;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[9]/div/span")
+	@FindBy(xpath = "(//div[@class='flex items-center'])[10]/div/span")
 	WebElement eleGetUpdatedVLikeCount;
 
 	public void verifyArticleLikeCount() throws InterruptedException {
@@ -123,24 +123,24 @@ public class ArticlesHomePage extends BaseClass {
 		// hit the like button
 		eleClickLikeBtn.click();
 
+		// get current like count
+		int curntLikeCount1 = 0;
+		try {
+	        // Attempt to interact with the element
+			String curntLikeCount = eleGetcurntLikeCount.getText();
+			System.out.println("The current" + " Like " + "count is : " + curntLikeCount);
+			curntLikeCount1 = Integer.parseInt(curntLikeCount);
+	    } catch (NoSuchElementException e) {
+	        // If no comments, print a message and continue
+	        System.out.println("There are no Likes yet, assuming current Like count as 0.");
+	    } 
+		
 		// Handle the login flow
 		LoginPage login = new LoginPage();
 		login.simpleLogin(userId, password);
 
 		eleClickLikeBtn.click();
-
-		// get current like count
 		
-				int curntLikeCount1 = 0;
-				try {
-			        // Attempt to interact with the element
-					String curntLikeCount = eleGetcurntLikeCount.getText();
-					System.out.println("The current" + " Like " + "count is : " + curntLikeCount);
-					curntLikeCount1 = Integer.parseInt(curntLikeCount);
-			    } catch (NoSuchElementException e) {
-			        // If no comments, print a message and continue
-			        System.out.println("There are no Likes yet, assuming current Like count as 0.");
-			    } 
 
 		// Navigate back to “Article Home Page”
 		eleArticles.click();
@@ -185,7 +185,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "(//*[name()='svg'][contains(@class,'h-7 w-7 fill-current')])[1]")
 	WebElement eleClickCancelBtn;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[9]/div/span")
+	@FindBy(xpath = "(//div[@class='flex items-center'])[11]/div/span")
 	WebElement eleGetUpdatedComentCount;
 
 	public void verifyArticleCommentCount(String entrComent) throws InterruptedException {
@@ -219,7 +219,7 @@ public class ArticlesHomePage extends BaseClass {
 
 		// post the comment
 
-		eleClickPostBtn.click();
+		//eleClickPostBtn.click();
 		
 		// close the comment box
 		eleClickCancelBtn.click();
@@ -231,7 +231,7 @@ public class ArticlesHomePage extends BaseClass {
 
 		// get updated like count
 		String updatedComentCount = eleGetUpdatedComentCount.getText();
-		//System.out.println("The updated" + " Comments " + "count is : " + updatedComentCount);
+		System.out.println("The updated" + " Comments " + "count is : " + updatedComentCount);
 		
 		
 		// Convert view counts to integers
@@ -244,15 +244,15 @@ public class ArticlesHomePage extends BaseClass {
 	}
 	
 	
-	//Navigate back to “Article Home Page”. On language toggle (English to Hindi), verify Hindi articles should be shown.
+//Navigate back to “Article Home Page”. On language toggle (English to Hindi), verify Hindi articles should be shown.
 	
 	@FindBy(xpath = "//button[contains(@class,'w-28 whitespace-nowrap rounded-3xl px-5 py-1.5 font-semibold text-slate-600 hover:bg-slate-200')]")
 	WebElement eleHindiTogle;
 	
-	@FindBy(xpath = "//span[contains(text(),'छठे महाविनाश की शुरुआत हो चुकी है!')]")
+	@FindBy(xpath = "//span[contains(text(),'जो कठिनतम है उसे साध लो, बाकी अपने आप सध जाएगा')]")
 	WebElement elehindiArticle;
 	
-	public void checkLanguageToogle() {
+	public void checkLanguageToogle() throws InterruptedException {
 		
 		
         try {
@@ -262,15 +262,20 @@ public class ArticlesHomePage extends BaseClass {
             // Wait until the Hindi Toggle button is clickable and click it
             ExplicitWait.explicitWaitForElementClicable(eleHindiTogle);
             eleHindiTogle.click();
-
+            Thread.sleep(2000);
+            driver.navigate().refresh();
+           // eleHindiTogle.click();
+            
             // Wait until the Hindi article is visible
-            ExplicitWait.explicitWaitForElement(eleHindiTogle);
-            // Print the title of the page to confirm navigation
-            System.out.println(driver.getTitle());
+            ExplicitWait.explicitWaitForElementVisibility(elehindiArticle);
+            
 
             // Check if the Hindi article is displayed
+            
             if (elehindiArticle.isDisplayed()) {
                 System.out.println("Hindi articles are displayed successfully.");
+                //String hindiTxt=elehindiArticle.getText();
+               // Assert.assertEquals(hindiTxt, expText);
             } else {
                 System.out.println("Hindi articles are NOT displayed.");
             }

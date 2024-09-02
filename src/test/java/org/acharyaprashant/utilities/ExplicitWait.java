@@ -17,7 +17,7 @@ public class ExplicitWait extends BaseClass {
 	}
 	
 
-	public static void explicitWaitForElement(WebElement locaterName) {
+	public static void explicitWaitForElementVisibility(WebElement locaterName) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 		wait.until(ExpectedConditions.visibilityOf(locaterName));
 	}
