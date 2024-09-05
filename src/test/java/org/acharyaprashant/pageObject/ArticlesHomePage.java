@@ -239,7 +239,7 @@ public class ArticlesHomePage extends BaseClass {
 
 		// post the comment
 
-		//eleClickPostBtn.click();
+		eleClickPostBtn.click();
 		
 		// close the comment box
 		eleClickCancelBtn.click();
