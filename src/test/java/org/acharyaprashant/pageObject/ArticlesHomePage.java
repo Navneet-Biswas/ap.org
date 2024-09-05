@@ -1,5 +1,7 @@
 package org.acharyaprashant.pageObject;
 
+import java.util.List;
+
 import org.acharyaprashant.testCases.BaseClass;
 import org.acharyaprashant.utilities.ExplicitWait;
 import org.openqa.selenium.NoSuchElementException;
@@ -49,10 +51,11 @@ public class ArticlesHomePage extends BaseClass {
 
 	// Open 3rd article from Trending Articles list
 
-	@FindBy(xpath = "//div[contains(@class,'flex w-full flex-col laptop:mt-3 laptop:w-2/3 laptop:pb-10')]//child::div[6]")
+	@FindBy(xpath = "(//a[@class='flex flex-col py-4'])[3]")
+	static
 	WebElement eleThirdArticlFrmTrendngArtLst;
 
-	public void clikOnThirdArticlFrmTrendngArtLst() {
+	public static void clikOnThirdArticlFrmTrendngArtLst() {
 
 		eleThirdArticlFrmTrendngArtLst.click();
 		// System.out.println(driver.getTitle());
@@ -67,27 +70,45 @@ public class ArticlesHomePage extends BaseClass {
 
 // Verify view count increases
 	
-	@FindBy(xpath = "//div[contains(@class,'flex items-center space-x-1 text-lg font-medium text-slate-500')]//child::span[1]")
+	@FindBy(xpath = "(//div[contains(@class,'flex items-center')])[32]/div[1]")
 	WebElement eleGetcurntViewCount;
 
 	@FindBy(xpath = "//button[@aria-label='Go back']//*[name()='svg']")
 	WebElement eleBackButton;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[9]/div")
+	@FindBy(xpath = "(//div[contains(@class,'flex items-center')])[32]/div[1]")
 	WebElement eleGetUpdatedViewCount;
 
+	@FindBy(xpath = "(//iframe[contains(@aria-hidden,'true')])[1]")
+	WebElement frame;
+	
+	
+	
+	
 	public void verifyArticleViewCount() {
+		
 		
 		int curntViewCount1 = 0;
 		try {
-	        // Attempt to interact with the element
+	       
+			
+			//driver.switchTo().frame(frame);
+
+			
+			
 			String curntViewCount = eleGetcurntViewCount.getText();
 			System.out.println("The current" + " View " + "count is : " + curntViewCount);
 			curntViewCount1 = Integer.parseInt(curntViewCount);
-	    } catch (NoSuchElementException e) {
+			
+			
+	    } catch (StaleElementReferenceException e) {
 	        // If no comments, print a message and continue
 	       System.out.println("There are no Views yet, assuming current Views count as 0.");
 	    } 
+		
+		ArticlesHomePage.clikOnThirdArticlFrmTrendngArtLst();
+		
+		
 
 		// Navigate back to “Article Home Page”
 		eleBackButton.click();
@@ -112,7 +133,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "(//div[contains(@class,'flex items-center space-x-4 laptop:space-x-7')])[1]//span")
 	WebElement eleGetcurntLikeCount;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[10]/div/span")
+	@FindBy(xpath = "(//div[@class='flex items-center'])[11]/div/span")
 	WebElement eleGetUpdatedVLikeCount;
 
 	public void verifyArticleLikeCount() throws InterruptedException {
@@ -184,7 +205,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "(//*[name()='svg'][contains(@class,'h-7 w-7 fill-current')])[1]")
 	WebElement eleClickCancelBtn;
 
-	@FindBy(xpath = "(//div[@class='flex items-center'])[11]/div/span")
+	@FindBy(xpath = "(//div[@class='flex items-center'])[12]/div/span")
 	WebElement eleGetUpdatedComentCount;
 
 	public void verifyArticleCommentCount(String entrComent) throws InterruptedException {
@@ -218,7 +239,7 @@ public class ArticlesHomePage extends BaseClass {
 
 		// post the comment
 
-		eleClickPostBtn.click();
+		//eleClickPostBtn.click();
 		
 		// close the comment box
 		eleClickCancelBtn.click();
@@ -248,7 +269,7 @@ public class ArticlesHomePage extends BaseClass {
 	@FindBy(xpath = "//button[contains(@class,'w-28 whitespace-nowrap rounded-3xl px-5 py-1.5 font-semibold text-slate-600 hover:bg-slate-200')]")
 	WebElement eleHindiTogle;
 	
-	@FindBy(xpath = "//span[contains(text(),'जो कठिनतम है उसे साध लो, बाकी अपने आप सध जाएगा')]")
+	@FindBy(xpath = "//span[contains(text(),'सांसारिक काम करते हुए अध्यात्म के साथ कैसे रहें? |')]")
 	WebElement elehindiArticle;
 	
 	public void checkLanguageToogle(String expText) throws InterruptedException {

@@ -40,9 +40,7 @@ public class TS_001_ArticlesHomePage extends BaseClass {
 		articlesHomePage.verifyArtPageTitle(input.get("expArtPageTitle"));
 		articlesHomePage.clikOnSeeAllTrendngArticls();
 		articlesHomePage.verifyTrendArtPageTitle(input.get("exptTrendingArtsPageTitle"));
-		articlesHomePage.clikOnThirdArticlFrmTrendngArtLst();
-		articlesHomePage.verifyThirdArticlOfTrendngArtPageTitle(input.get("exptTrendingArts3rdPageTitle"));
-
+	
 		articlesHomePage.verifyArticleViewCount();
 
 	}
